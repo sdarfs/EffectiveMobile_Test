@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 	"log"
-	"project_mobile/database/models"
+	"project_mobile/app/database/models"
 	"strings"
 
 	"github.com/golang-migrate/migrate/v4"

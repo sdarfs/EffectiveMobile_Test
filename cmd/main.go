@@ -4,8 +4,8 @@ import (
 	"io"
 	"log"
 	"os"
-	"project_mobile/database/postgres"
-	"project_mobile/internal/api"
+	"project_mobile/app/database/postgres"
+	"project_mobile/app/internals/api"
 
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"     // swagger embed files

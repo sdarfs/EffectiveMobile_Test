@@ -14,10 +14,10 @@ package api
 import (
 	"errors"
 	"fmt"
-	"project_mobile/database/models"
-	"project_mobile/database/postgres"
-	"project_mobile/internal/entity"
-	"project_mobile/internal/services"
+	"project_mobile/app/database/models"
+	"project_mobile/app/database/postgres"
+	"project_mobile/app/internals/entity"
+	"project_mobile/app/internals/services"
 
 	"log"
 	"net/http"
