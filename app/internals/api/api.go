@@ -1,3 +1,19 @@
+package api
+
+import (
+	"enricher/app/database/models"
+	"enricher/app/database/postgres"
+	"enricher/app/internals/entity"
+	"enricher/app/internals/services"
+	"errors"
+	"fmt"
+
+	"log"
+	"net/http"
+
+	"github.com/gin-gonic/gin"
+)
+
 // CreateUser godoc
 // @Summary Создать нового пользователя
 // @Description Добавляет пользователя в БД, обогащая его данные (возраст, пол, национальность)
@@ -8,23 +24,6 @@
 // @Success 200 {object} models.User
 // @Failure 400 {object} entity.ResponseErr
 // @Router /create_user [post]
-
-package api
-
-import (
-	"errors"
-	"fmt"
-	"project_mobile/app/database/models"
-	"project_mobile/app/database/postgres"
-	"project_mobile/app/internals/entity"
-	"project_mobile/app/internals/services"
-
-	"log"
-	"net/http"
-
-	"github.com/gin-gonic/gin"
-)
-
 func CreateUser(ctx *gin.Context) {
 	var request entity.CreateRequest
 	var response models.User
@@ -88,9 +87,18 @@ func CreateUser(ctx *gin.Context) {
 	}
 
 	ctx.IndentedJSON(http.StatusOK, response)
-
 }
 
+// UpdateUser godoc
+// @Summary Обновить данные пользователя
+// @Description Обновляет указанное поле пользователя
+// @Tags users
+// @Accept json
+// @Produce json
+// @Param request body entity.UpdateRequest true "Поле и новое значение"
+// @Success 200 {object} entity.ResponseOk
+// @Failure 400 {object} entity.ResponseErr
+// @Router /update_user [put]
 func UpdateUser(ctx *gin.Context) {
 	var request entity.UpdateRequest
 
@@ -120,6 +128,16 @@ func UpdateUser(ctx *gin.Context) {
 	ctx.IndentedJSON(http.StatusOK, resp)
 }
 
+// DeleteUser godoc
+// @Summary Удалить пользователя
+// @Description Удаляет пользователя по ID
+// @Tags users
+// @Accept json
+// @Produce json
+// @Param request body entity.DeleteRequest true "ID пользователя"
+// @Success 200 {object} entity.ResponseOk
+// @Failure 400 {object} entity.ResponseErr
+// @Router /delete_user [delete]
 func DeleteUser(ctx *gin.Context) {
 	var request entity.DeleteRequest
 
@@ -151,6 +169,14 @@ func DeleteUser(ctx *gin.Context) {
 	ctx.IndentedJSON(http.StatusOK, resp)
 }
 
+// GetUsers godoc
+// @Summary Получить всех пользователей
+// @Description Возвращает список всех пользователей
+// @Tags users
+// @Produce json
+// @Success 200 {array} models.User
+// @Failure 400 {object} entity.ResponseErr
+// @Router /get_users [get]
 func GetUsers(ctx *gin.Context) {
 	pg, err := postgres.NewPostgres()
 	if err != nil {
@@ -172,6 +198,19 @@ func GetUsers(ctx *gin.Context) {
 	ctx.IndentedJSON(http.StatusOK, res)
 }
 
+// GetUsersFilter godoc
+// @Summary Получить пользователей по фильтру
+// @Description Возвращает пользователей, отфильтрованных по параметрам
+// @Tags users
+// @Produce json
+// @Param name query string false "Фильтр по имени"
+// @Param surname query string false "Фильтр по фамилии"
+// @Param age query int false "Фильтр по возрасту"
+// @Param gender query string false "Фильтр по полу"
+// @Param nationality query string false "Фильтр по национальности"
+// @Success 200 {array} models.User
+// @Failure 400 {object} entity.ResponseErr
+// @Router /get_users_by_filter [get]
 func GetUsersFilter(ctx *gin.Context) {
 	EmptyFilterError := errors.New("got empry filter")
 

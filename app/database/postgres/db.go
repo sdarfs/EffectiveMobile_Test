@@ -2,9 +2,9 @@ package postgres
 
 import (
 	"context"
+	"enricher/app/database/models"
 	"fmt"
 	"log"
-	"project_mobile/app/database/models"
 	"strings"
 
 	"github.com/golang-migrate/migrate/v4"
@@ -175,11 +175,12 @@ func (p PostgresDB) Close() error {
 
 func (p *PostgresDB) MigrationsUp(url ...string) error {
 	var sourceURL string
-	if url == nil {
-		sourceURL = "file://database/migrations"
+	if len(url) == 0 {
+		sourceURL = "file://./app/database/migrations"
 	} else {
 		sourceURL = url[0]
 	}
+
 	m, err := migrate.New(sourceURL, p.url)
 	if err != nil {
 		return err

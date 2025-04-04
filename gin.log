@@ -1,0 +1,10 @@
+[GIN-debug] POST   /create_user              --> enricher/app/internals/api.CreateUser (3 handlers)
+[GIN-debug] PUT    /update_user              --> enricher/app/internals/api.UpdateUser (3 handlers)
+[GIN-debug] DELETE /delete_user              --> enricher/app/internals/api.DeleteUser (3 handlers)
+[GIN-debug] GET    /get_users                --> enricher/app/internals/api.GetUsers (3 handlers)
+[GIN-debug] GET    /get_users_by_filter      --> enricher/app/internals/api.GetUsersFilter (3 handlers)
+[GIN-debug] GET    /swagger/*any             --> github.com/swaggo/gin-swagger.CustomWrapHandler.func1 (3 handlers)
+[GIN-debug] [WARNING] You trusted all proxies, this is NOT safe. We recommend you to set a value.
+Please check https://pkg.go.dev/github.com/gin-gonic/gin#readme-don-t-trust-all-proxies for details.
+[GIN-debug] Environment variable PORT is undefined. Using port :8080 by default
+[GIN-debug] Listening and serving HTTP on :8080

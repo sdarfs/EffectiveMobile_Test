@@ -1,4 +1,55 @@
 basePath: /
+definitions:
+  entity.CreateRequest:
+    properties:
+      name:
+        example: Ivan
+        type: string
+      patronymic:
+        example: Ivanovich
+        type: string
+      surname:
+        example: Ivanov
+        type: string
+    type: object
+  entity.DeleteRequest:
+    properties:
+      user_id:
+        type: integer
+    type: object
+  entity.ResponseErr:
+    properties:
+      error: {}
+    type: object
+  entity.ResponseOk:
+    properties:
+      message:
+        type: string
+    type: object
+  entity.UpdateRequest:
+    properties:
+      field_to_update:
+        type: string
+      new_value:
+        type: string
+      user_id:
+        type: integer
+    type: object
+  models.User:
+    properties:
+      age:
+        type: integer
+      gender:
+        type: string
+      name:
+        type: string
+      nationality:
+        type: string
+      patronymic:
+        type: string
+      surname:
+        type: string
+    type: object
 host: localhost:8080
 info:
   contact: {}
@@ -9,5 +60,143 @@ info:
   termsOfService: http://swagger.io/terms/
   title: User project_mobile API
   version: "1.0"
-paths: {}
+paths:
+  /create_user:
+    post:
+      consumes:
+      - application/json
+      description: Добавляет пользователя в БД, обогащая его данные (возраст, пол,
+        национальность)
+      parameters:
+      - description: Данные пользователя
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/entity.CreateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/entity.ResponseErr'
+      summary: Создать нового пользователя
+      tags:
+      - users
+  /delete_user:
+    delete:
+      consumes:
+      - application/json
+      description: Удаляет пользователя по ID
+      parameters:
+      - description: ID пользователя
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/entity.DeleteRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entity.ResponseOk'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/entity.ResponseErr'
+      summary: Удалить пользователя
+      tags:
+      - users
+  /get_users:
+    get:
+      description: Возвращает список всех пользователей
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.User'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/entity.ResponseErr'
+      summary: Получить всех пользователей
+      tags:
+      - users
+  /get_users_by_filter:
+    get:
+      description: Возвращает пользователей, отфильтрованных по параметрам
+      parameters:
+      - description: Фильтр по имени
+        in: query
+        name: name
+        type: string
+      - description: Фильтр по фамилии
+        in: query
+        name: surname
+        type: string
+      - description: Фильтр по возрасту
+        in: query
+        name: age
+        type: integer
+      - description: Фильтр по полу
+        in: query
+        name: gender
+        type: string
+      - description: Фильтр по национальности
+        in: query
+        name: nationality
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.User'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/entity.ResponseErr'
+      summary: Получить пользователей по фильтру
+      tags:
+      - users
+  /update_user:
+    put:
+      consumes:
+      - application/json
+      description: Обновляет указанное поле пользователя
+      parameters:
+      - description: Поле и новое значение
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/entity.UpdateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entity.ResponseOk'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/entity.ResponseErr'
+      summary: Обновить данные пользователя
+      tags:
+      - users
 swagger: "2.0"

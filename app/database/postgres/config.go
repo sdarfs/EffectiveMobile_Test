@@ -17,7 +17,7 @@ type Config struct {
 }
 
 func NewConfig() Config {
-	err := godotenv.Load("database/postgres/.env")
+	err := godotenv.Load("app/database/postgres/.env")
 
 	if err != nil {
 		log.Fatal("Error loading .env file")

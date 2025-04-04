@@ -1,8 +1,8 @@
-[GIN-debug] POST   /create_user              --> project_mobile/internal/api.CreateUser (3 handlers)
-[GIN-debug] PUT    /update_user              --> project_mobile/internal/api.UpdateUser (3 handlers)
-[GIN-debug] DELETE /delete_user              --> project_mobile/internal/api.DeleteUser (3 handlers)
-[GIN-debug] GET    /get_users                --> project_mobile/internal/api.GetUsers (3 handlers)
-[GIN-debug] GET    /get_users_by_filter      --> project_mobile/internal/api.GetUsersFilter (3 handlers)
+[GIN-debug] POST   /create_user              --> enricher/internal/api.CreateUser (3 handlers)
+[GIN-debug] PUT    /update_user              --> enricher/internal/api.UpdateUser (3 handlers)
+[GIN-debug] DELETE /delete_user              --> enricher/internal/api.DeleteUser (3 handlers)
+[GIN-debug] GET    /get_users                --> enricher/internal/api.GetUsers (3 handlers)
+[GIN-debug] GET    /get_users_by_filter      --> enricher/internal/api.GetUsersFilter (3 handlers)
 [GIN-debug] [WARNING] You trusted all proxies, this is NOT safe. We recommend you to set a value.
 Please check https://pkg.go.dev/github.com/gin-gonic/gin#readme-don-t-trust-all-proxies for details.
 [GIN-debug] Environment variable PORT is undefined. Using port :8080 by default
